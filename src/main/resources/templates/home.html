@@ -16,13 +16,22 @@
 <div sec:authorize="isAuthenticated()">
     <div class="box">
         Hello, <strong th:text="${#authentication.name}"></strong>!
+        <form action="/logout" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button type="submit">Log out</button>
+        </form>
     </div>
 </div>
+
 <div sec:authorize="isAnonymous()">
-    <div class="box">
-        <a class="button login is-primary" th:href="@{/oauth2/authorization/cognito}">
-            Log in with Amazon Cognito</a>
-    </div>
+    <ul>
+        <li>
+        <a th:href="@{/oauth2/authorization/cognito}">Log in with Amazon Cognito</a>
+        </li>
+        <li>
+            <a href="/sign-up">Sign up</a>
+        </li>
+    </ul>
 </div>
 
 </body>
